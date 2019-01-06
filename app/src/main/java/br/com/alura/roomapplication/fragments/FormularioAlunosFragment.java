@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import br.com.alura.roomapplication.R;
+import br.com.alura.roomapplication.databases.AlunoDao;
+import br.com.alura.roomapplication.databases.GeradorBD;
 import br.com.alura.roomapplication.delegates.AlunosDelegate;
 import br.com.alura.roomapplication.models.Aluno;
 
@@ -37,7 +39,19 @@ public class FormularioAlunosFragment extends Fragment {
 
         configuraComponentesDaView(view);
 
+        colocaAlunoNaTela();
+
         return view;
+    }
+
+    private void colocaAlunoNaTela() {
+        Bundle bundle = getArguments();
+
+        if (bundle != null) {
+            this.aluno = (Aluno) bundle.getSerializable("aluno");
+            this.campoNome.setText(aluno.getNome());
+            this.campoEmail.setText(aluno.getEmail());
+        }
     }
 
     private void configuraComponentesDaView(View view) {
@@ -50,11 +64,25 @@ public class FormularioAlunosFragment extends Fragment {
             public void onClick(View view) {
                 atualizaAluno();
 
-                Toast.makeText(getContext(), aluno.getNome(), Toast.LENGTH_SHORT).show();
+                persisteAluno();
 
                 delegate.voltaParaTelaAnterior();
             }
         });
+    }
+
+    private void persisteAluno() {
+        GeradorBD geradorBD = new GeradorBD();
+        AlunoDao alunoDao = geradorBD.geraBD(getContext()).getAlunoDao();
+
+        if (ehAlunoNovo())
+            alunoDao.insere(aluno);
+        else
+            alunoDao.altera(aluno);
+    }
+
+    private boolean ehAlunoNovo() {
+        return aluno.getId() == null;
     }
 
     private void atualizaAluno() {

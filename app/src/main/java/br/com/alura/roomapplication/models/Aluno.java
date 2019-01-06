@@ -1,9 +1,25 @@
 package br.com.alura.roomapplication.models;
 
-public class Aluno {
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
+@Entity
+public class Aluno implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private Long id;
     private String nome;
     private String email;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -19,5 +35,10 @@ public class Aluno {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return id + " - " + nome;
     }
 }
