@@ -4,7 +4,7 @@ import android.app.Application
 import br.com.alisson.roomapp.dependencyinjection.ApplicationComponent
 import br.com.alisson.roomapp.dependencyinjection.RoomModule
 import br.com.alisson.roomapp.dependencyinjection.ApplicationModule
-
+import br.com.alisson.roomapp.dependencyinjection.DaggerApplicationComponent
 
 
 class RoomAppApplication: Application() {

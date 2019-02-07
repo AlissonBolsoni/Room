@@ -38,7 +38,7 @@ class CreateFragment : Fragment() {
     private var pagerAdapter: PagerAdapter? = null
 
     @Inject
-    internal var viewModelFactory: ViewModelProvider.Factory? = null
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private var newListItemViewModel: NewListItemViewModel? = null
 

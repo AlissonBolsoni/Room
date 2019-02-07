@@ -28,7 +28,7 @@ class DetailFragment : Fragment() {
     private var itemId: String? = null
 
     @Inject
-    internal var viewModelFactory: ViewModelProvider.Factory? = null
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     lateinit var listItemViewModel: ListItemViewModel
 
